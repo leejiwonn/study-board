@@ -20,7 +20,7 @@ const MainPage = () => {
       </ListTitle>
       <ListView>
         {list.length === 0 ? (
-          <p>목록이 없습니다.</p>
+          <ListView.None>목록이 없습니다.</ListView.None>
         ) : (
           list.map((v, i) => (
             <ListItem key={i}>
@@ -50,17 +50,23 @@ export const ListView = styled.div`
   width: 80%;
   height: 500px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   overflow: scroll;
   margin-bottom: 20px;
   box-sizing: content-box;
   background-color: #fff;
+`;
 
-  p {
-    color: lightgray;
-    font-size: 14px;
-  }
+ListView.None = styled.p`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: lightgray;
+  font-size: 14px;
 `;
 
 export const ListItem = styled.div`
@@ -76,8 +82,11 @@ export const ListItem = styled.div`
 
 ListItem.Title = styled.div`
   width: 20%;
+  overflow: hidden;
   font-size: 20px;
   font-weight: bold;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 ListItem.Info = styled.div`
