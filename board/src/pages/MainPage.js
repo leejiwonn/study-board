@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import ReactHtmlParser from "react-html-parser";
 import styled from "styled-components";
+import { listStore } from "../store/state";
 
 const MainPage = () => {
-  console.log("main page");
+  const list = useRecoilValue(listStore);
+
+  useEffect(() => {
+    console.log(list);
+  }, [list]);
 
   return (
     <MainStyled>
@@ -12,10 +19,16 @@ const MainPage = () => {
         <Link to="/edit">글쓰기</Link>
       </ListTitle>
       <ListView>
-        <ListItem>
-          <ListItem.Title>제목</ListItem.Title>
-          <ListItem.Info>내용</ListItem.Info>
-        </ListItem>
+        {list.length === 0 ? (
+          <p>목록이 없습니다.</p>
+        ) : (
+          list.map((v, i) => (
+            <ListItem key={i}>
+              <ListItem.Title>{v.title}</ListItem.Title>
+              <ListItem.Info>{ReactHtmlParser(v.content)}</ListItem.Info>
+            </ListItem>
+          ))
+        )}
       </ListView>
     </MainStyled>
   );
@@ -36,9 +49,18 @@ export const MainStyled = styled.div`
 export const ListView = styled.div`
   width: 80%;
   height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: scroll;
   margin-bottom: 20px;
   box-sizing: content-box;
   background-color: #fff;
+
+  p {
+    color: lightgray;
+    font-size: 14px;
+  }
 `;
 
 export const ListItem = styled.div`
