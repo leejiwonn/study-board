@@ -25,9 +25,11 @@ const EditPage = () => {
   };
 
   const submitButtonClick = () => {
-    setList((list) => {
-      return [...list, editContent];
+    setList((defaultList) => {
+      return [...defaultList, editContent];
     });
+    alert("등록 완료!");
+    window.location.href = "/";
   };
 
   return (
