@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import resetCss from "reset-css";
 import { createGlobalStyle } from "styled-components";
 import MainPage from "./pages/MainPage";
+import EditPage from "./pages/EditPage";
 
 const GlobalStyle = createGlobalStyle`
   ${resetCss};
@@ -31,6 +32,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={MainPage} />
+          <Route path="/edit" exact component={EditPage} />
         </Switch>
       </BrowserRouter>
       <GlobalStyle />
