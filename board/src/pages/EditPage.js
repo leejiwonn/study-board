@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { listStore } from "../store/state";
+import Editor from "../components/Editor/Editor";
+import "../css/ckContent.css";
 
 const EditPage = () => {
   const [list, setList] = useRecoilState(listStore);
@@ -41,12 +41,8 @@ const EditPage = () => {
           name="title"
           onChange={getEditValue}
         />
-        <CKEditor
-          editor={ClassicEditor}
-          data="글을 작성해보세요!"
-          onReady={(editor) => {
-            console.log("Editor is ready to use!", editor);
-          }}
+        <Editor
+          data={editContent.content}
           onChange={(event, editor) => {
             const data = editor.getData();
             console.log({ event, editor, data });
@@ -54,12 +50,6 @@ const EditPage = () => {
               ...editContent,
               content: data,
             });
-          }}
-          onBlur={(event, editor) => {
-            console.log("Blur.", editor);
-          }}
-          onFocus={(event, editor) => {
-            console.log("Focus.", editor);
           }}
         />
         <Board.SubmitButton onClick={submitButtonClick}>
@@ -81,29 +71,19 @@ export const BoardStyled = styled.div`
 `;
 
 export const Board = styled.div`
-  width: 80%;
+  width: 60%;
   height: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #fff;
-
-  .ck-editor {
-    width: 100%;
-    height: 100%;
-    min-height: 400px;
-
-    .ck-editor__main,
-    .ck-editor__editable_inline {
-      height: 90%;
-    }
-  }
 `;
 
 Board.Title = styled.input`
   width: 100%;
   height: 40px;
   margin-bottom: 20px;
+  padding: 10px 0;
 `;
 
 Board.Info = styled.textarea`

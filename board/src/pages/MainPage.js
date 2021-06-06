@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import ReactHtmlParser from "html-react-parser";
+import parse from "html-react-parser";
 import styled from "styled-components";
 import { listStore } from "../store/state";
 
@@ -25,7 +25,7 @@ const MainPage = () => {
           list.map((v, i) => (
             <ListItem key={i}>
               <ListItem.Title>{v.title}</ListItem.Title>
-              <ListItem.Info>{ReactHtmlParser(v.content)}</ListItem.Info>
+              <ListItem.Info>{parse(`${v.content}`)}</ListItem.Info>
             </ListItem>
           ))
         )}
@@ -91,7 +91,6 @@ ListItem.Title = styled.div`
 
 ListItem.Info = styled.div`
   width: 80%;
-  font-size: 14px;
 `;
 
 export const ListTitle = styled.div`
