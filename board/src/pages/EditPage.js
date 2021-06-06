@@ -43,7 +43,10 @@ const EditPage = () => {
         />
         <CKEditor
           editor={ClassicEditor}
-          data=""
+          data="글을 작성해보세요!"
+          onReady={(editor) => {
+            console.log("Editor is ready to use!", editor);
+          }}
           onChange={(event, editor) => {
             const data = editor.getData();
             console.log({ event, editor, data });
@@ -84,10 +87,21 @@ export const Board = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: #fff;
+
+  .ck-editor {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+
+    .ck-editor__main,
+    .ck-editor__editable_inline {
+      height: 90%;
+    }
+  }
 `;
 
 Board.Title = styled.input`
-  width: 95%;
+  width: 100%;
   height: 40px;
   margin-bottom: 20px;
 `;
