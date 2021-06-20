@@ -4,6 +4,7 @@ import resetCss from "reset-css";
 import { createGlobalStyle } from "styled-components";
 import MainPage from "./pages/MainPage";
 import EditPage from "./pages/EditPage";
+import DetailPage from "./pages/DetailPage";
 
 const GlobalStyle = createGlobalStyle`
   ${resetCss};
@@ -33,6 +34,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={MainPage} />
           <Route path="/edit" exact component={EditPage} />
+          <Route path="/detail/:id" exact component={DetailPage} />
         </Switch>
       </BrowserRouter>
       <GlobalStyle />
